@@ -1,192 +1,229 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>For My Bamby ❤️</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;600&display=swap" rel="stylesheet">
-    <style>
-        body {
-            margin: 0;
-            font-family: 'Poppins', sans-serif;
-            text-align: center;
-            background: linear-gradient(135deg, #ff758c, #ff7eb3);
-            color: white;
-            overflow: hidden;
-        }
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>For My Bamby ❤️</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
 
-        .container {
-            padding: 40px 20px;
-        }
+<style>
+body {
+    margin:0;
+    font-family:'Poppins',sans-serif;
+    text-align:center;
+    color:white;
+    overflow:hidden;
+    background: radial-gradient(circle at top, #ff9a9e, #fad0c4 40%, #ff758c 70%);
+}
 
-        h1 {
-            font-size: 26px;
-            margin-top: 40px;
-        }
+/* Premium Glass Card */
+.container{
+    position:relative;
+    z-index:2;
+    margin:60px auto;
+    width:90%;
+    max-width:420px;
+    padding:30px;
+    background: rgba(255,255,255,0.15);
+    backdrop-filter: blur(15px);
+    border-radius:25px;
+    box-shadow:0 10px 40px rgba(0,0,0,0.2);
+}
 
-        #countdown {
-            margin-top: 10px;
-            font-size: 16px;
-            opacity: 0.9;
-        }
+h1{
+    font-size:24px;
+    font-weight:600;
+}
 
-        .buttons {
-            margin-top: 40px;
-        }
+#countdown{
+    margin-top:10px;
+    font-size:14px;
+    opacity:0.9;
+}
 
-        button {
-            padding: 14px 28px;
-            font-size: 18px;
-            border: none;
-            border-radius: 30px;
-            margin: 10px;
-            cursor: pointer;
-            transition: transform 0.2s;
-        }
+button{
+    padding:14px 28px;
+    font-size:18px;
+    border:none;
+    border-radius:40px;
+    margin:15px;
+    cursor:pointer;
+    transition:0.2s;
+}
 
-        button:active {
-            transform: scale(0.95);
-        }
+button:active{
+    transform:scale(0.95);
+}
 
-        #yes {
-            background: white;
-            color: #ff4d6d;
-            font-weight: bold;
-        }
+#yes{
+    background:white;
+    color:#ff4d6d;
+    font-weight:bold;
+}
 
-        #no {
-            background: #ff4d6d;
-            color: white;
-            position: absolute;
-        }
+#no{
+    background:#ff4d6d;
+    color:white;
+    position:absolute;
+}
 
-        #proposal {
-            display: none;
-            margin-top: 40px;
-            font-size: 20px;
-        }
+#proposal{
+    display:none;
+    margin-top:20px;
+    font-size:17px;
+    line-height:1.6;
+}
 
-        #typing {
-            font-size: 24px;
-            font-weight: bold;
-            margin-top: 20px;
-            border-right: 2px solid white;
-            display: inline-block;
-            white-space: nowrap;
-            overflow: hidden;
-        }
+#typing{
+    margin-top:15px;
+    font-weight:bold;
+    font-size:20px;
+    border-right:2px solid white;
+    display:inline-block;
+    white-space:nowrap;
+    overflow:hidden;
+}
 
-        canvas {
-            position: fixed;
-            top: 0;
-            left: 0;
-            pointer-events: none;
-        }
+canvas{
+    position:fixed;
+    top:0;
+    left:0;
+    z-index:1;
+}
 
-        .heart {
-            position: absolute;
-            animation: float 6s linear infinite;
-        }
+/* Floating hearts */
+.heart{
+    position:absolute;
+    font-size:20px;
+    animation:float 8s linear infinite;
+    opacity:0.8;
+}
 
-        @keyframes float {
-            0% {transform: translateY(100vh);}
-            100% {transform: translateY(-10vh);}
-        }
-    </style>
+@keyframes float{
+    0%{transform:translateY(100vh) scale(1);}
+    100%{transform:translateY(-10vh) scale(1.5);}
+}
+</style>
 </head>
+
 <body>
 
 <canvas id="fireworks"></canvas>
 
 <div class="container">
-    <h1>My Beautiful Bamby 💖<br>Will You Be My Valentine?</h1>
-    <div id="countdown"></div>
+<h1>My Precious Bamby 💖<br>Will You Be My Valentine?</h1>
+<div id="countdown"></div>
 
-    <div class="buttons">
-        <button id="yes" onclick="yesClicked()">YES 😍</button>
-        <button id="no" onmouseover="moveButton()">NO 😜</button>
-    </div>
+<button id="yes" onclick="yesClicked()">YES 😍</button>
+<button id="no" onmouseover="moveButton()">NO 😜</button>
 
-    <div id="proposal">
-        💍 Bamby… You are my today, tomorrow and forever.
-        <div id="typing"></div>
-    </div>
+<div id="proposal">
+Bamby… from the day you came into my life,  
+every moment became magical.  
+You are my peace, my strength, my happiness.  
+I choose you today, tomorrow, and forever. 💍  
+<div id="typing"></div>
+</div>
 </div>
 
-<audio autoplay loop>
-  <source src="https://www.bensound.com/bensound-music/bensound-romantic.mp3" type="audio/mp3">
+<audio id="bgMusic" loop>
+<source src="https://www.bensound.com/bensound-music/bensound-romantic.mp3" type="audio/mp3">
 </audio>
 
 <script>
 
-// Countdown
+/* Countdown */
 var countDownDate = new Date("Feb 14, 2026 00:00:00").getTime();
-setInterval(function() {
-  var now = new Date().getTime();
-  var distance = countDownDate - now;
-  var days = Math.floor(distance / (1000 * 60 * 60 * 24));
-  document.getElementById("countdown").innerHTML =
-  "Countdown to Our Love Day ❤️: " + days + " days left";
-}, 1000);
+setInterval(function(){
+    var now=new Date().getTime();
+    var distance=countDownDate-now;
+    var days=Math.floor(distance/(1000*60*60*24));
+    document.getElementById("countdown").innerHTML=
+    "Countdown to Our Love Day ❤️ : "+days+" days left";
+},1000);
 
-// Move NO button
-function moveButton() {
-    var x = Math.random() * (window.innerWidth - 100);
-    var y = Math.random() * (window.innerHeight - 50);
-    document.getElementById("no").style.left = x + "px";
-    document.getElementById("no").style.top = y + "px";
+/* Move NO */
+function moveButton(){
+    var x=Math.random()*(window.innerWidth-120);
+    var y=Math.random()*(window.innerHeight-60);
+    document.getElementById("no").style.left=x+"px";
+    document.getElementById("no").style.top=y+"px";
 }
 
-// YES clicked
-function yesClicked() {
-    document.getElementById("proposal").style.display = "block";
+/* Fireworks System */
+var canvas=document.getElementById("fireworks");
+var ctx=canvas.getContext("2d");
+canvas.width=window.innerWidth;
+canvas.height=window.innerHeight;
+var particles=[];
+
+function createFirework(){
+    particles=[];
+    for(let i=0;i<120;i++){
+        particles.push({
+            x:canvas.width/2,
+            y:canvas.height/2,
+            radius:3,
+            color:"hsl("+Math.random()*360+",100%,60%)",
+            speedX:(Math.random()-0.5)*8,
+            speedY:(Math.random()-0.5)*8
+        });
+    }
+}
+
+function animateFireworks(){
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+    particles.forEach(p=>{
+        ctx.beginPath();
+        ctx.arc(p.x,p.y,p.radius,0,2*Math.PI);
+        ctx.fillStyle=p.color;
+        ctx.fill();
+        p.x+=p.speedX;
+        p.y+=p.speedY;
+    });
+    requestAnimationFrame(animateFireworks);
+}
+animateFireworks();
+
+/* YES Click */
+function yesClicked(){
+    document.getElementById("proposal").style.display="block";
+
+    // Restart typing
+    document.getElementById("typing").innerHTML="";
     startTyping();
-    startFireworks();
+
+    // Restart fireworks clean
+    createFirework();
+
+    // Start music (fix autoplay restriction)
+    var music=document.getElementById("bgMusic");
+    music.play();
 }
 
-// Typing Animation
-function startTyping() {
-    var text = "I love you Bamby ❤️ Forever & Always.";
-    var i = 0;
-    var speed = 80;
-    function typeWriter() {
-        if (i < text.length) {
-            document.getElementById("typing").innerHTML += text.charAt(i);
+/* Typing */
+function startTyping(){
+    var text="I love you Bamby ❤️ Forever & Always.";
+    var i=0;
+    function type(){
+        if(i<text.length){
+            document.getElementById("typing").innerHTML+=text.charAt(i);
             i++;
-            setTimeout(typeWriter, speed);
+            setTimeout(type,70);
         }
     }
-    typeWriter();
+    type();
 }
 
-// Floating Hearts
-setInterval(function() {
-    var heart = document.createElement("div");
-    heart.innerHTML = "❤️";
-    heart.className = "heart";
-    heart.style.left = Math.random() * 100 + "vw";
-    heart.style.fontSize = Math.random() * 20 + 20 + "px";
+/* Floating Hearts */
+setInterval(function(){
+    var heart=document.createElement("div");
+    heart.innerHTML="❤️";
+    heart.className="heart";
+    heart.style.left=Math.random()*100+"vw";
+    heart.style.fontSize=Math.random()*15+20+"px";
     document.body.appendChild(heart);
-    setTimeout(() => { heart.remove(); }, 6000);
-}, 500);
-
-// Fireworks
-var canvas = document.getElementById("fireworks");
-var ctx = canvas.getContext("2d");
-canvas.width = window.innerWidth;
-canvas.height = window.innerHeight;
-
-function startFireworks() {
-    for (let i = 0; i < 25; i++) {
-        let x = Math.random() * canvas.width;
-        let y = Math.random() * canvas.height / 2;
-        for (let j = 0; j < 40; j++) {
-            ctx.beginPath();
-            ctx.arc(x + Math.random()*100-50, y + Math.random()*100-50, 3, 0, 2*Math.PI);
-            ctx.fillStyle = "hsl(" + Math.random()*360 + ",100%,60%)";
-            ctx.fill();
-        }
-    }
-}
+    setTimeout(()=>{heart.remove();},8000);
+},800);
 
 </script>
 
