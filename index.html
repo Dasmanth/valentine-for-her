@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>For My Bamby ❤️</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+            font-family: 'Arial', sans-serif;
+            text-align: center;
+            background: linear-gradient(to right, #ff758c, #ff7eb3);
+            color: white;
+        }
+
+        h1 {
+            margin-top: 80px;
+            font-size: 38px;
+            animation: fadeIn 3s ease-in-out;
+        }
+
+        #countdown {
+            font-size: 20px;
+            margin-top: 10px;
+        }
+
+        button {
+            padding: 15px 30px;
+            font-size: 20px;
+            margin: 20px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+        }
+
+        #yes {
+            background-color: #00ff88;
+        }
+
+        #no {
+            background-color: #ff4444;
+            position: absolute;
+        }
+
+        @keyframes fadeIn {
+            from {opacity: 0;}
+            to {opacity: 1;}
+        }
+
+        .heart {
+            position: absolute;
+            color: red;
+            animation: float 5s linear infinite;
+        }
+
+        @keyframes float {
+            0% {transform: translateY(0);}
+            100% {transform: translateY(-100vh);}
+        }
+
+        #proposal {
+            display: none;
+            font-size: 30px;
+            margin-top: 50px;
+            animation: fadeIn 3s ease-in-out;
+        }
+    </style>
+</head>
+<body>
+
+<h1>My Dearest Bamby 💖<br>Will You Be My Valentine?</h1>
+
+<div id="countdown"></div>
+
+<button id="yes" onclick="yesClicked()">YES 😍</button>
+<button id="no" onmouseover="moveButton()">NO 😜</button>
+
+<div id="proposal">
+    💍 Bamby, you are my forever, my always, my heartbeat.  
+    Thank you for saying YES.  
+    I love you endlessly ❤️
+</div>
+
+<!-- Background Music -->
+<audio autoplay loop>
+  <source src="https://www.bensound.com/bensound-music/bensound-romantic.mp3" type="audio/mp3">
+</audio>
+
+<script>
+
+// Countdown Timer to Valentine's Day
+var countDownDate = new Date("Feb 14, 2026 00:00:00").getTime();
+var x = setInterval(function() {
+  var now = new Date().getTime();
+  var distance = countDownDate - now;
+  var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+  document.getElementById("countdown").innerHTML =
+  "Countdown to Our Love Day ❤️: " + days + " days left";
+}, 1000);
+
+// Move NO button
+function moveButton() {
+    var x = Math.random() * window.innerWidth;
+    var y = Math.random() * window.innerHeight;
+    document.getElementById("no").style.left = x + "px";
+    document.getElementById("no").style.top = y + "px";
+}
+
+// YES click
+function yesClicked() {
+    document.getElementById("proposal").style.display = "block";
+}
+
+// Floating Hearts
+setInterval(function() {
+    var heart = document.createElement("div");
+    heart.innerHTML = "❤️";
+    heart.className = "heart";
+    heart.style.left = Math.random() * 100 + "vw";
+    heart.style.fontSize = Math.random() * 20 + 20 + "px";
+    document.body.appendChild(heart);
+    setTimeout(() => { heart.remove(); }, 5000);
+}, 300);
+
+</script>
+
+</body>
+</html>
