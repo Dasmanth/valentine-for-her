@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover"/>
   <title>For My Bamby ❤️</title>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Montserrat:wght@400;700&family=Dancing+Script:wght@400;700&display=swap" rel="stylesheet">
   
   <style>
     * { margin:0; padding:0; box-sizing:border-box; }
@@ -27,7 +27,7 @@
       position: relative;
     }
 
-    /* Flying Hearts – unchanged */
+    /* Flying Hearts */
     .heart {
       position: fixed;
       font-size: 1.6rem;
@@ -40,14 +40,14 @@
       100% { transform: translateY(-120vh) rotate(360deg); opacity: 0; }
     }
 
-    /* Very light & gentle cute cat emojis – only 😺, 4 positions */
+    /* Gentle cute cats – only 😺 */
     .cat {
       position: absolute;
       font-size: 3rem;
       pointer-events: none;
       z-index: -1;
       opacity: 0.6;
-      animation: catFloat 35s linear infinite; /* very slow & light */
+      animation: catFloat 35s linear infinite;
     }
     @keyframes catFloat {
       0%   { transform: translate(0, 0); opacity: 0.6; }
@@ -67,13 +67,29 @@
       box-shadow: 0 10px 40px rgba(0,0,0,0.5);
       z-index: 10;
       margin: auto;
+      animation: softGlow 6s ease-in-out infinite; /* Enhancement #4 – warm loving glow */
+    }
+
+    @keyframes softGlow {
+      0%, 100% { box-shadow: 0 10px 40px rgba(0,0,0,0.5); }
+      50%      { box-shadow: 0 10px 60px rgba(255,51,102,0.4); }
     }
 
     h1 {
       font-family: 'Playfair Display', serif;
       font-size: 2.2rem;
-      margin-bottom: 35px;
+      margin-bottom: 20px;
       line-height: 1.2;
+    }
+
+    /* Enhancement #3 – Handwritten loving note */
+    .love-note {
+      font-family: 'Dancing Script', cursive;
+      font-size: 1.4rem;
+      margin: 20px 0 30px;
+      opacity: 0.92;
+      line-height: 1.5;
+      color: #ffe4e1;
     }
 
     .buttons {
@@ -98,7 +114,14 @@
       background: #ff3366;
       color: white;
       box-shadow: 0 5px 18px rgba(255,51,102,0.6);
+      animation: heartbeat 1.8s infinite ease-in-out; /* Enhancement #1 – heartbeat */
     }
+
+    @keyframes heartbeat {
+      0%, 100% { transform: scale(1); }
+      50%      { transform: scale(1.08); }
+    }
+
     #yes:active, #yes:focus {
       transform: scale(1.1);
       box-shadow: 0 8px 25px rgba(255,51,102,0.9);
@@ -110,7 +133,7 @@
       backdrop-filter: blur(6px);
     }
 
-    /* Popup – same message every time */
+    /* Popup */
     #popup {
       position: fixed;
       inset: 0;
@@ -155,8 +178,17 @@
       cursor: pointer;
     }
 
+    /* Enhancement #5 – Forever Yours signature */
+    .signature {
+      margin-top: 30px;
+      font-size: 1.1rem;
+      opacity: 0.85;
+      font-style: italic;
+    }
+
     @media (max-width: 500px) {
       h1 { font-size: 1.9rem; }
+      .love-note { font-size: 1.25rem; }
       button { padding: 14px 32px; font-size: 1.05rem; min-width: 115px; }
       .popup-content { padding: 35px 25px; max-width: 92%; }
       .cat { font-size: 2.6rem; }
@@ -165,22 +197,34 @@
 </head>
 <body>
 
-  <!-- Only 4 gentle 😺 cats – very light & adorable -->
+  <!-- Gentle cute cats – only 😺 -->
   <div class="cat" style="--x:30px; --y:-40px; top:10%; left:8%;">😺</div>
   <div class="cat" style="--x:-30px; --y:50px; top:20%; right:10%; animation-delay:4s;">😺</div>
   <div class="cat" style="--x:40px; --y:-35px; bottom:15%; left:15%; animation-delay:8s;">😺</div>
-  <div class="cat" style="--x:-25px; --y:45px; bottom:22%; right:12%; animation-delay:12s;">😺</div>
+  <div class="cat" style="--x:-25px; --y:45px; bottom:22%; right:10%; animation-delay:12s;">😺</div>
 
   <div class="container">
     <h1>My Beautiful Bamby 💖<br>Will You Be My Valentine?</h1>
+
+    <!-- Enhancement #3 – Handwritten loving note -->
+    <div class="love-note">
+      To my forever happiness, my calm, my everything...<br>
+      I promise to hold your hand through every sunrise and every storm. 💍
+    </div>
 
     <div class="buttons">
       <button id="yes">YES 😍</button>
       <button id="no">NO 😜</button>
     </div>
+
+    <!-- Enhancement #5 – Signature -->
+    <div class="signature">
+      Forever yours,<br>
+      Dasmanth 💕
+    </div>
   </div>
 
-  <!-- Popup -->
+  <!-- Popup – same every time -->
   <div id="popup">
     <div class="popup-content">
       <div class="popup-text">
