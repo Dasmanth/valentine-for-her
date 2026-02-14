@@ -18,71 +18,51 @@
       justify-content:center;
       align-items:center;
       touch-action:manipulation;
+      position:relative;
     }
 
-    /* ⭐ Moving + Twinkling Stars (Base layer) */
+    /* ⭐ Very light twinkling stars (lighter version) */
     .stars {
       position:fixed;
       inset:0;
-      background:url('https://www.transparenttextures.com/patterns/stardust.png');
-      animation:moveStars 80s linear infinite;
-      z-index:-2;
-      pointer-events:none;
-      opacity:0.6;
+      background: radial-gradient(circle, rgba(255,255,255,0.08) 1px, transparent 1px);
+      background-size: 50px 50px;
+      opacity: 0.5;
+      animation: gentleTwinkle 12s ease-in-out infinite;
+      z-index: -2;
+      pointer-events: none;
     }
-    @keyframes moveStars {
-      from { background-position:0 0; }
-      to   { background-position:1200px 1200px; }
-    }
-
-    /* ✨ Extra romantic twinkling + drifting layers (Option 3) */
-    .stars::before,
-    .stars::after {
-      content:"";
-      position:absolute;
-      inset:0;
-      background: 
-        radial-gradient(white 1px, transparent 1px),
-        radial-gradient(white 1px, transparent 1px);
-      background-size:60px 60px, 40px 40px;
-      background-position:0 0, 30px 30px;
-      opacity:0.7;
-      pointer-events:none;
+    @keyframes gentleTwinkle {
+      0%, 100% { opacity: 0.4; }
+      50%      { opacity: 0.7; }
     }
 
-    .stars::before {
-      animation: 
-        moveStars 120s linear infinite,
-        twinkleLayer1 10s ease-in-out infinite alternate;
-    }
-
-    .stars::after {
-      animation: 
-        moveStars 140s linear infinite reverse,
-        twinkleLayer2 14s ease-in-out infinite alternate;
-    }
-
-    @keyframes twinkleLayer1 {
-      0%   { opacity:0.5; transform:translate(0,0) scale(1); }
-      100% { opacity:0.9; transform:translate(25px,18px) scale(1.04); }
-    }
-
-    @keyframes twinkleLayer2 {
-      0%   { opacity:0.6; transform:translate(0,0) scale(1); }
-      100% { opacity:0.85; transform:translate(-20px,-25px) scale(1.03); }
-    }
-
-    /* ❤️ Flying Hearts (unchanged) */
+    /* ❤️ Flying Hearts – lighter & slower */
     .heart {
       position:fixed;
-      font-size:2rem;
+      font-size:1.6rem;
       pointer-events:none;
       z-index:-1;
       animation:floatUp linear forwards;
     }
     @keyframes floatUp {
-      0%   { transform:translateY(0) rotate(0deg); opacity:1; }
-      100% { transform:translateY(-120vh) rotate(720deg); opacity:0; }
+      0%   { transform:translateY(0) rotate(0deg); opacity:0.9; }
+      100% { transform:translateY(-120vh) rotate(360deg); opacity:0; }
+    }
+
+    /* 🐱 Cute floating cats (soft & adorable) */
+    .cat {
+      position: absolute;
+      font-size: 3rem;
+      pointer-events: none;
+      z-index: -1;
+      opacity: 0.7;
+      animation: catFloat 18s ease-in-out infinite;
+    }
+    @keyframes catFloat {
+      0%   { transform: translate(0, 0) rotate(0deg); opacity: 0.4; }
+      50%  { transform: translate(30px, -40px) rotate(5deg); opacity: 0.8; }
+      100% { transform: translate(0, 0) rotate(0deg); opacity: 0.4; }
     }
 
     .container {
@@ -139,7 +119,7 @@
       backdrop-filter:blur(6px);
     }
 
-    /* Popup - SAME MESSAGE EVERY TIME (unchanged) */
+    /* Popup – unchanged */
     #popup {
       position:fixed;
       inset:0;
@@ -188,13 +168,20 @@
       h1 { font-size:1.9rem; }
       button { padding:14px 32px; font-size:1.05rem; min-width:115px; }
       .popup-content { padding:35px 25px; max-width:92%; }
+      .cat { font-size:2.5rem; }
     }
   </style>
 </head>
 <body>
 
-  <!-- Stars + extra twinkling layers -->
+  <!-- Light stars -->
   <div class="stars"></div>
+
+  <!-- Cute cats (placed softly in corners/background) -->
+  <div class="cat" style="top:10%; left:8%;">😺</div>
+  <div class="cat" style="top:15%; right:10%; animation-delay:4s;">🐾</div>
+  <div class="cat" style="bottom:12%; left:15%; animation-delay:8s;">😻</div>
+  <div class="cat" style="bottom:18%; right:12%; animation-delay:12s;">🐱</div>
 
   <div class="container">
     <h1>My Beautiful Bamby 💖<br>Will You Be My Valentine?</h1>
@@ -205,7 +192,7 @@
     </div>
   </div>
 
-  <!-- Popup (same message every time) -->
+  <!-- Same popup message every time -->
   <div id="popup">
     <div class="popup-content">
       <div class="popup-text">
@@ -220,12 +207,12 @@
     const yesBtn = document.getElementById("yes");
     const popup   = document.getElementById("popup");
 
-    // Show SAME popup every single time YES is clicked
+    // Same popup every YES click
     yesBtn.addEventListener("click", () => {
       popup.style.display = "flex";
     });
 
-    // NO button moves around (unchanged)
+    // NO button moves (unchanged)
     const noBtn = document.getElementById("no");
     function moveNo() {
       noBtn.style.position = "fixed";
@@ -235,19 +222,19 @@
     noBtn.addEventListener("touchstart", moveNo);
     noBtn.addEventListener("mouseover", moveNo);
 
-    // Continuous Flying Hearts (exactly unchanged)
+    // Lighter flying hearts (slower & fewer)
     function createHeart() {
       const heart = document.createElement("div");
       heart.className = "heart";
-      heart.innerHTML = Math.random() > 0.6 ? "❤️" : "💗";
+      heart.innerHTML = Math.random() > 0.5 ? "❤️" : "💗";
       heart.style.left = Math.random() * 100 + "vw";
       heart.style.bottom = "-20px";
-      heart.style.fontSize = (Math.random() * 1.4 + 1.4) + "rem";
-      heart.style.animationDuration = (Math.random() * 5 + 7) + "s";
+      heart.style.fontSize = (Math.random() * 1.2 + 1.2) + "rem";
+      heart.style.animationDuration = (Math.random() * 6 + 10) + "s"; // slower: 10-16s
       document.body.appendChild(heart);
-      setTimeout(() => heart.remove(), 13000);
+      setTimeout(() => heart.remove(), 18000);
     }
-    setInterval(createHeart, 350);
+    setInterval(createHeart, 800); // lighter: every 800ms instead of 350ms
   </script>
 </body>
 </html>
