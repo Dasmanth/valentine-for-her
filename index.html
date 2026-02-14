@@ -27,7 +27,7 @@
       position: relative;
     }
 
-    /* Flying Hearts */
+    /* Flying Hearts – unchanged */
     .heart {
       position: fixed;
       font-size: 1.6rem;
@@ -40,19 +40,19 @@
       100% { transform: translateY(-120vh) rotate(360deg); opacity: 0; }
     }
 
-    /* Cute floating cat emojis – more adorable ones, soft movement */
+    /* Very light & gentle cute cat emojis – only 😺, 4 positions */
     .cat {
       position: absolute;
-      font-size: 3.5rem;
+      font-size: 3rem;
       pointer-events: none;
       z-index: -1;
-      opacity: 0.8;
-      animation: catFloat 22s ease-in-out infinite;
+      opacity: 0.6;
+      animation: catFloat 35s linear infinite; /* very slow & light */
     }
     @keyframes catFloat {
-      0%   { transform: translate(0, 0) rotate(0deg); opacity: 0.6; }
-      50%  { transform: translate(var(--x), var(--y)) rotate(var(--rot)); opacity: 1; }
-      100% { transform: translate(0, 0) rotate(0deg); opacity: 0.6; }
+      0%   { transform: translate(0, 0); opacity: 0.6; }
+      50%  { transform: translate(var(--x), var(--y)); opacity: 0.85; }
+      100% { transform: translate(0, 0); opacity: 0.6; }
     }
 
     .container {
@@ -159,21 +159,17 @@
       h1 { font-size: 1.9rem; }
       button { padding: 14px 32px; font-size: 1.05rem; min-width: 115px; }
       .popup-content { padding: 35px 25px; max-width: 92%; }
-      .cat { font-size: 3rem; }
+      .cat { font-size: 2.6rem; }
     }
   </style>
 </head>
 <body>
 
-  <!-- Cute floating cat emojis – only 😺, more positions -->
-  <div class="cat" style="--x:50px; --y:-60px; --rot:10deg; top:5%; left:5%;">😺</div>
-  <div class="cat" style="--x:-45px; --y:70px; --rot:-8deg; top:12%; right:8%; animation-delay:2s;">😺</div>
-  <div class="cat" style="--x:60px; --y:-55px; --rot:6deg; bottom:18%; left:10%; animation-delay:5s;">😺</div>
-  <div class="cat" style="--x:-40px; --y:65px; --rot:-9deg; bottom:22%; right:12%; animation-delay:8s;">😺</div>
-  <div class="cat" style="--x:35px; --y:-40px; --rot:5deg; top:28%; left:18%; animation-delay:1s;">😺</div>
-  <div class="cat" style="--x:-50px; --y:50px; --rot:-7deg; top:35%; right:15%; animation-delay:4s;">😺</div>
-  <div class="cat" style="--x:45px; --y:-65px; --rot:7deg; bottom:28%; left:20%; animation-delay:7s;">😺</div>
-  <div class="cat" style="--x:-35px; --y:45px; --rot:-6deg; bottom:15%; right:18%; animation-delay:10s;">😺</div>
+  <!-- Only 4 gentle 😺 cats – very light & adorable -->
+  <div class="cat" style="--x:30px; --y:-40px; top:10%; left:8%;">😺</div>
+  <div class="cat" style="--x:-30px; --y:50px; top:20%; right:10%; animation-delay:4s;">😺</div>
+  <div class="cat" style="--x:40px; --y:-35px; bottom:15%; left:15%; animation-delay:8s;">😺</div>
+  <div class="cat" style="--x:-25px; --y:45px; bottom:22%; right:12%; animation-delay:12s;">😺</div>
 
   <div class="container">
     <h1>My Beautiful Bamby 💖<br>Will You Be My Valentine?</h1>
