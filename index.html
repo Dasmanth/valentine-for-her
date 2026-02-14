@@ -17,6 +17,9 @@
     body {
       min-height: 100dvh;
       font-family: 'Montserrat', sans-serif;
+      background: url('https://github.com/Dasmanth/valentine-for-her/raw/main/WhatsApp%20Image%202026-02-14%20at%207.33.54%20PM.jpeg') center/cover no-repeat fixed;
+      background-blend-mode: overlay;
+      background-color: rgba(106, 5, 114, 0.45);
       color: white;
       display: flex;
       flex-direction: column;
@@ -24,9 +27,6 @@
       align-items: center;
       touch-action: manipulation;
       position: relative;
-      background: url('https://github.com/Dasmanth/valentine-for-her/raw/main/WhatsApp%20Image%202026-02-14%20at%207.33.54%20PM.jpeg') center/cover no-repeat fixed;
-      background-blend-mode: overlay;
-      background-color: rgba(106, 5, 114, 0.45); /* soft purple tint for dreamy blur & readability */
     }
 
     /* Flying Hearts */
@@ -217,10 +217,11 @@
 
     <div class="signature">
       Forever yours,<br>
-      Charlie 💕
+      Dasmanth 💕
     </div>
   </div>
 
+  <!-- Popup -->
   <div id="popup">
     <div class="popup-content">
       <div class="popup-text">
@@ -231,12 +232,26 @@
     </div>
   </div>
 
+  <!-- Your personal romantic song – plays when YES is clicked -->
+  <audio id="bgMusic" loop>
+    <source src="https://github.com/Dasmanth/valentine-for-her/raw/main/WhatsApp%20Video%202026-02-14%20at%207.50.12%20PM%20(1).mp3" type="audio/mpeg">
+    Your browser does not support the audio element.
+  </audio>
+
   <script>
     const yesBtn = document.getElementById("yes");
     const popup   = document.getElementById("popup");
+    const music   = document.getElementById("bgMusic");
 
+    // Play your song when she clicks YES (works on mobile after user interaction)
     yesBtn.addEventListener("click", () => {
       popup.style.display = "flex";
+      
+      music.volume = 0.4; // gentle volume – you can change to 0.3–0.7
+      music.play().catch((err) => {
+        console.log("Music play failed:", err);
+        // Some browsers need another interaction – retry on next click if needed
+      });
     });
 
     const noBtn = document.getElementById("no");
