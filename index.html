@@ -232,9 +232,9 @@
     </div>
   </div>
 
-  <!-- Your personal romantic song – plays when YES is clicked -->
+  <!-- Your personal song – plays on YES click -->
   <audio id="bgMusic" loop>
-    <source src="https://github.com/Dasmanth/valentine-for-her/blob/main/WhatsApp%20Video%202026-02-14%20at%208.39.54%20PM%20(1).mp3" type="audio/mpeg">
+    <source src="https://github.com/Dasmanth/valentine-for-her/raw/main/WhatsApp%20Video%202026-02-14%20at%207.50.12%20PM%20(1).mp3" type="audio/mpeg">
     Your browser does not support the audio element.
   </audio>
 
@@ -243,14 +243,14 @@
     const popup   = document.getElementById("popup");
     const music   = document.getElementById("bgMusic");
 
-    // Play your song when she clicks YES (works on mobile after user interaction)
     yesBtn.addEventListener("click", () => {
       popup.style.display = "flex";
       
-      music.volume = 0.4; // gentle volume – you can change to 0.3–0.7
+      // Play your new song when YES is clicked
+      music.volume = 0.4; // gentle volume – change to 0.3–0.6 if needed
       music.play().catch((err) => {
-        console.log("Music play failed:", err);
-        // Some browsers need another interaction – retry on next click if needed
+        console.log("Music play failed (normal on some mobile browsers):", err);
+        // Retry on next click if blocked (very rare)
       });
     });
 
