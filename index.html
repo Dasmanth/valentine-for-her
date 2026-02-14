@@ -94,9 +94,8 @@
     .buttons {
       display: flex;
       justify-content: center;
-      gap: 15px;
+      gap: 25px;
       flex-wrap: wrap;
-      margin: 20px 0;
     }
 
     button {
@@ -131,15 +130,6 @@
       background: rgba(255,255,255,0.18);
       color: white;
       backdrop-filter: blur(6px);
-    }
-
-    #playMusicBtn {
-      background: #ff69b4;
-      color: white;
-      box-shadow: 0 4px 15px rgba(255,105,180,0.5);
-      padding: 12px 28px;
-      font-size: 1rem;
-      min-width: auto;
     }
 
     #popup {
@@ -221,12 +211,11 @@
     <div class="buttons">
       <button id="yes">YES 😍</button>
       <button id="no">NO 😜</button>
-      <button id="playMusicBtn">Play Our Song 💕</button>
     </div>
 
     <div class="signature">
       Forever yours,<br>
-      Dasmanth 💕
+      Charlie 💕
     </div>
   </div>
 
@@ -241,32 +230,29 @@
     </div>
   </div>
 
-  <!-- Your personal song -->
-  <audio id="bgMusic" loop>
+  <!-- Your personal song – plays when YES is clicked -->
+  <audio id="bgMusic" loop preload="auto">
     <source src="https://github.com/Dasmanth/valentine-for-her/raw/main/WhatsApp%20Video%202026-02-14%20at%208.39.54%20PM%20(1).mp3" type="audio/mpeg">
     Your browser does not support the audio element.
   </audio>
 
   <script>
     const yesBtn = document.getElementById("yes");
-    const playBtn = document.getElementById("playMusicBtn");
     const popup   = document.getElementById("popup");
     const music   = document.getElementById("bgMusic");
 
-    // Play music on YES click or dedicated button (mobile-safe)
-    function playSong() {
-      music.volume = 0.4;
-      music.play().catch(err => {
-        console.log("First play blocked, waiting for another tap:", err);
-      });
-    }
-
+    // Play song when YES is clicked (mobile-safe)
     yesBtn.addEventListener("click", () => {
       popup.style.display = "flex";
-      playSong();
-    });
 
-    playBtn.addEventListener("click", playSong);
+      // Start your song
+      music.volume = 0.4; // soft romantic volume
+      music.play().catch((err) => {
+        console.log("Music play attempt:", err);
+        // Most mobile browsers allow play after real user tap (YES click)
+        // If blocked (very rare), next YES tap will retry
+      });
+    });
 
     const noBtn = document.getElementById("no");
     function moveNo() {
