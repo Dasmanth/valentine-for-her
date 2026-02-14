@@ -20,7 +20,7 @@
       touch-action:manipulation;
     }
 
-    /* ⭐ Moving Stars */
+    /* ⭐ Moving + Twinkling Stars (Base layer) */
     .stars {
       position:fixed;
       inset:0;
@@ -28,13 +28,51 @@
       animation:moveStars 80s linear infinite;
       z-index:-2;
       pointer-events:none;
+      opacity:0.6;
     }
     @keyframes moveStars {
       from { background-position:0 0; }
       to   { background-position:1200px 1200px; }
     }
 
-    /* ❤️ Flying Hearts */
+    /* ✨ Extra romantic twinkling + drifting layers (Option 3) */
+    .stars::before,
+    .stars::after {
+      content:"";
+      position:absolute;
+      inset:0;
+      background: 
+        radial-gradient(white 1px, transparent 1px),
+        radial-gradient(white 1px, transparent 1px);
+      background-size:60px 60px, 40px 40px;
+      background-position:0 0, 30px 30px;
+      opacity:0.7;
+      pointer-events:none;
+    }
+
+    .stars::before {
+      animation: 
+        moveStars 120s linear infinite,
+        twinkleLayer1 10s ease-in-out infinite alternate;
+    }
+
+    .stars::after {
+      animation: 
+        moveStars 140s linear infinite reverse,
+        twinkleLayer2 14s ease-in-out infinite alternate;
+    }
+
+    @keyframes twinkleLayer1 {
+      0%   { opacity:0.5; transform:translate(0,0) scale(1); }
+      100% { opacity:0.9; transform:translate(25px,18px) scale(1.04); }
+    }
+
+    @keyframes twinkleLayer2 {
+      0%   { opacity:0.6; transform:translate(0,0) scale(1); }
+      100% { opacity:0.85; transform:translate(-20px,-25px) scale(1.03); }
+    }
+
+    /* ❤️ Flying Hearts (unchanged) */
     .heart {
       position:fixed;
       font-size:2rem;
@@ -101,7 +139,7 @@
       backdrop-filter:blur(6px);
     }
 
-    /* Popup - SAME MESSAGE EVERY TIME */
+    /* Popup - SAME MESSAGE EVERY TIME (unchanged) */
     #popup {
       position:fixed;
       inset:0;
@@ -155,7 +193,7 @@
 </head>
 <body>
 
-  <!-- Stars -->
+  <!-- Stars + extra twinkling layers -->
   <div class="stars"></div>
 
   <div class="container">
@@ -167,7 +205,7 @@
     </div>
   </div>
 
-  <!-- Same Message Popup (appears on YES click - every time) -->
+  <!-- Popup (same message every time) -->
   <div id="popup">
     <div class="popup-content">
       <div class="popup-text">
@@ -178,25 +216,16 @@
     </div>
   </div>
 
-  <!-- Optional Background Music (uncomment if you have music.mp3) -->
-  <!--
-  <audio id="bgMusic" loop>
-    <source src="music.mp3" type="audio/mpeg">
-  </audio>
-  -->
-
   <script>
     const yesBtn = document.getElementById("yes");
     const popup   = document.getElementById("popup");
-    // const music   = document.getElementById("bgMusic"); // uncomment if using music
 
     // Show SAME popup every single time YES is clicked
     yesBtn.addEventListener("click", () => {
       popup.style.display = "flex";
-      // music?.play(); // uncomment if using music
     });
 
-    // NO button moves around (fun + mobile safe)
+    // NO button moves around (unchanged)
     const noBtn = document.getElementById("no");
     function moveNo() {
       noBtn.style.position = "fixed";
@@ -206,7 +235,7 @@
     noBtn.addEventListener("touchstart", moveNo);
     noBtn.addEventListener("mouseover", moveNo);
 
-    // Continuous Flying Hearts
+    // Continuous Flying Hearts (exactly unchanged)
     function createHeart() {
       const heart = document.createElement("div");
       heart.className = "heart";
@@ -214,11 +243,11 @@
       heart.style.left = Math.random() * 100 + "vw";
       heart.style.bottom = "-20px";
       heart.style.fontSize = (Math.random() * 1.4 + 1.4) + "rem";
-      heart.style.animationDuration = (Math.random() * 5 + 7) + "s"; // 7-12s float
+      heart.style.animationDuration = (Math.random() * 5 + 7) + "s";
       document.body.appendChild(heart);
       setTimeout(() => heart.remove(), 13000);
     }
-    setInterval(createHeart, 350); // more hearts = more love
+    setInterval(createHeart, 350);
   </script>
 </body>
 </html>
