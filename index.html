@@ -19,6 +19,21 @@ body{
     overflow:hidden;
 }
 
+/* ⭐ Stars Background */
+.stars{
+    position:fixed;
+    width:100%;
+    height:100%;
+    background:url('https://www.transparenttextures.com/patterns/stardust.png');
+    animation:moveStars 60s linear infinite;
+    z-index:-1;
+}
+
+@keyframes moveStars{
+    from{background-position:0 0;}
+    to{background-position:1000px 1000px;}
+}
+
 .container{
     width:90%;
     max-width:380px;
@@ -52,7 +67,7 @@ button{
     cursor:pointer;
 }
 
- @media (max-width: 600px) {
+@media (max-width: 600px) {
     .buttons {
         flex-direction: row;
     }
@@ -60,7 +75,7 @@ button{
     button {
         min-width: 110px;
     }
-}   
+}
 
 #yes{
     background:white;
@@ -88,10 +103,28 @@ button{
     overflow:hidden;
     display:inline-block;
 }
+
+/* ❤️ Flying Hearts Animation */
+@keyframes floatUp {
+    0% {
+        transform: translateY(0);
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(-100vh);
+        opacity: 0;
+    }
+}
 </style>
 </head>
 
 <body>
+
+<!-- ⭐ Stars -->
+<div class="stars"></div>
+
+<!-- 🎵 Background Music -->
+<audio id="bgMusic" src="music.mp3" loop></audio>
 
 <div class="container">
 <h1>My Beautiful Bamby 💖<br>Will You Be My Valentine?</h1>
@@ -112,11 +145,13 @@ const yesBtn=document.getElementById("yes");
 const noBtn=document.getElementById("no");
 const proposal=document.getElementById("proposal");
 const typing=document.getElementById("typing");
+const music=document.getElementById("bgMusic");
 
 /* YES Click */
 yesBtn.addEventListener("click",()=>{
     proposal.style.display="block";
     typing.innerHTML="";
+    music.play();   // 🎵 play music
     startTyping();
 });
 
@@ -130,9 +165,27 @@ function moveNo(){
 noBtn.addEventListener("touchstart",moveNo);
 noBtn.addEventListener("mouseover",moveNo);
 
-/* Typing */
+/* ❤️ Flying Hearts */
+function createHeart(){
+    const heart=document.createElement("div");
+    heart.innerHTML="❤️";
+    heart.style.position="fixed";
+    heart.style.left=Math.random()*window.innerWidth+"px";
+    heart.style.bottom="0px";
+    heart.style.fontSize=(Math.random()*20+15)+"px";
+    heart.style.animation="floatUp 5s linear forwards";
+    document.body.appendChild(heart);
+
+    setTimeout(()=>{
+        heart.remove();
+    },5000);
+}
+
+setInterval(createHeart,500);
+
+/* ✨ Typing Effect (Correct Grammar) */
 function startTyping(){
-    const text = "I love you Bamby ❤️ Forever & Always.";
+    const text="I love you, Bamby. You are my forever, my happiness, and the most beautiful part of my life. I promise to cherish you today, tomorrow, and always. ❤️";
     let i=0;
     function type(){
         if(i<text.length){
