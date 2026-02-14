@@ -17,7 +17,6 @@
     body {
       min-height: 100dvh;
       font-family: 'Montserrat', sans-serif;
-      background: linear-gradient(135deg, #1a002b, #6a0572, #ff6ec4);
       color: white;
       display: flex;
       flex-direction: column;
@@ -25,6 +24,9 @@
       align-items: center;
       touch-action: manipulation;
       position: relative;
+      background: url('https://github.com/Dasmanth/valentine-for-her/raw/main/WhatsApp%20Image%202026-02-14%20at%207.33.54%20PM.jpeg') center/cover no-repeat fixed;
+      background-blend-mode: overlay;
+      background-color: rgba(106, 5, 114, 0.45); /* soft purple tint for dreamy blur & readability */
     }
 
     /* Flying Hearts */
@@ -67,7 +69,7 @@
       box-shadow: 0 10px 40px rgba(0,0,0,0.5);
       z-index: 10;
       margin: auto;
-      animation: softGlow 6s ease-in-out infinite; /* Enhancement #4 – warm loving glow */
+      animation: softGlow 6s ease-in-out infinite;
     }
 
     @keyframes softGlow {
@@ -82,7 +84,6 @@
       line-height: 1.2;
     }
 
-    /* Enhancement #3 – Handwritten loving note */
     .love-note {
       font-family: 'Dancing Script', cursive;
       font-size: 1.4rem;
@@ -114,7 +115,7 @@
       background: #ff3366;
       color: white;
       box-shadow: 0 5px 18px rgba(255,51,102,0.6);
-      animation: heartbeat 1.8s infinite ease-in-out; /* Enhancement #1 – heartbeat */
+      animation: heartbeat 1.8s infinite ease-in-out;
     }
 
     @keyframes heartbeat {
@@ -133,7 +134,6 @@
       backdrop-filter: blur(6px);
     }
 
-    /* Popup */
     #popup {
       position: fixed;
       inset: 0;
@@ -178,7 +178,6 @@
       cursor: pointer;
     }
 
-    /* Enhancement #5 – Forever Yours signature */
     .signature {
       margin-top: 30px;
       font-size: 1.1rem;
@@ -206,7 +205,6 @@
   <div class="container">
     <h1>My Beautiful Bamby 💖<br>Will You Be My Valentine?</h1>
 
-    <!-- Enhancement #3 – Handwritten loving note -->
     <div class="love-note">
       To my forever happiness, my calm, my everything...<br>
       I promise to hold your hand through every sunrise and every storm. 💍
@@ -217,14 +215,12 @@
       <button id="no">NO 😜</button>
     </div>
 
-    <!-- Enhancement #5 – Signature -->
     <div class="signature">
       Forever yours,<br>
-      Charlie 💕
+      Dasmanth 💕
     </div>
   </div>
 
-  <!-- Popup – same every time -->
   <div id="popup">
     <div class="popup-content">
       <div class="popup-text">
