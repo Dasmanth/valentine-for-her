@@ -1,202 +1,224 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>For My Bamby ❤️</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+  <title>For My Bamby ❤️</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+  
+  <style>
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body {
+      height:100vh;
+      font-family:'Montserrat', sans-serif;
+      background:linear-gradient(135deg, #1a002b, #6a0572, #ff6ec4);
+      color:white;
+      overflow:hidden;
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      touch-action:manipulation;
+    }
 
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Montserrat:wght@400&display=swap" rel="stylesheet">
+    /* ⭐ Moving Stars */
+    .stars {
+      position:fixed;
+      inset:0;
+      background:url('https://www.transparenttextures.com/patterns/stardust.png');
+      animation:moveStars 80s linear infinite;
+      z-index:-2;
+      pointer-events:none;
+    }
+    @keyframes moveStars {
+      from { background-position:0 0; }
+      to   { background-position:1200px 1200px; }
+    }
 
-<style>
-body{
-    margin:0;
-    height:100vh;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    font-family:'Montserrat',sans-serif;
-    background:linear-gradient(135deg,#1a002b,#6a0572,#ff6ec4);
-    color:white;
-    overflow:hidden;
-}
+    /* ❤️ Flying Hearts */
+    .heart {
+      position:fixed;
+      font-size:2rem;
+      pointer-events:none;
+      z-index:-1;
+      animation:floatUp linear forwards;
+    }
+    @keyframes floatUp {
+      0%   { transform:translateY(0) rotate(0deg); opacity:1; }
+      100% { transform:translateY(-120vh) rotate(720deg); opacity:0; }
+    }
 
-/* ⭐ Stars Background */
-.stars{
-    position:fixed;
-    width:100%;
-    height:100%;
-    background:url('https://www.transparenttextures.com/patterns/stardust.png');
-    animation:moveStars 60s linear infinite;
-    z-index:-1;
-}
+    .container {
+      width:90%;
+      max-width:380px;
+      padding:35px 20px;
+      background:rgba(255,255,255,0.13);
+      backdrop-filter:blur(16px);
+      border-radius:24px;
+      text-align:center;
+      border:1px solid rgba(255,255,255,0.25);
+      box-shadow:0 10px 40px rgba(0,0,0,0.5);
+      z-index:10;
+    }
 
-@keyframes moveStars{
-    from{background-position:0 0;}
-    to{background-position:1000px 1000px;}
-}
+    h1 {
+      font-family:'Playfair Display', serif;
+      font-size:2.2rem;
+      margin-bottom:35px;
+      line-height:1.2;
+    }
 
-.container{
-    width:90%;
-    max-width:380px;
-    padding:30px 20px;
-    background:rgba(255,255,255,0.12);
-    backdrop-filter:blur(15px);
-    border-radius:20px;
-    text-align:center;
-    position:relative;
-}
-
-h1{
-    font-family:'Playfair Display',serif;
-    font-size:20px;
-    margin-bottom:25px;
-}
-
-.buttons {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 20px;
-    flex-wrap: nowrap;
-}
-
-button{
-    padding:12px 24px;
-    border:none;
-    border-radius:30px;
-    font-size:15px;
-    cursor:pointer;
-}
-
-@media (max-width: 600px) {
     .buttons {
-        flex-direction: row;
+      display:flex;
+      justify-content:center;
+      gap:25px;
+      flex-wrap:wrap;
     }
 
     button {
-        min-width: 110px;
+      padding:16px 36px;
+      font-size:1.15rem;
+      border:none;
+      border-radius:50px;
+      cursor:pointer;
+      transition:all 0.25s;
+      min-width:130px;
+      font-weight:bold;
     }
-}
 
-#yes{
-    background:white;
-    color:#6a0572;
-    font-weight:bold;
-}
-
-#no {
-    background: #c9184a;
-    color: white;
-}
-
-#proposal{
-    display:none;
-    margin-top:20px;
-    font-size:14px;
-    line-height:1.6;
-}
-
-#typing{
-    margin-top:12px;
-    font-size:16px;
-    border-right:2px solid white;
-    white-space:nowrap;
-    overflow:hidden;
-    display:inline-block;
-}
-
-/* ❤️ Flying Hearts Animation */
-@keyframes floatUp {
-    0% {
-        transform: translateY(0);
-        opacity: 1;
+    #yes {
+      background:#ff3366;
+      color:white;
+      box-shadow:0 5px 18px rgba(255,51,102,0.6);
     }
-    100% {
-        transform: translateY(-100vh);
-        opacity: 0;
+    #yes:active, #yes:focus {
+      transform:scale(1.1);
+      box-shadow:0 8px 25px rgba(255,51,102,0.9);
     }
-}
-</style>
+
+    #no {
+      background:rgba(255,255,255,0.18);
+      color:white;
+      backdrop-filter:blur(6px);
+    }
+
+    /* Popup - SAME MESSAGE EVERY TIME */
+    #popup {
+      position:fixed;
+      inset:0;
+      background:rgba(0,0,0,0.75);
+      display:none;
+      justify-content:center;
+      align-items:center;
+      z-index:100;
+      backdrop-filter:blur(10px);
+    }
+
+    .popup-content {
+      background:rgba(106,5,114,0.92);
+      padding:45px 30px;
+      border-radius:28px;
+      max-width:360px;
+      text-align:center;
+      box-shadow:0 12px 50px rgba(0,0,0,0.7);
+      border:2px solid #ff6ec4;
+      animation:popIn 0.45s ease-out;
+    }
+
+    @keyframes popIn {
+      0% { transform:scale(0.6); opacity:0; }
+      100% { transform:scale(1); opacity:1; }
+    }
+
+    .popup-text {
+      font-size:1.35rem;
+      line-height:1.6;
+      margin:25px 0;
+    }
+
+    .close-btn {
+      margin-top:25px;
+      padding:12px 40px;
+      background:#ff3366;
+      color:white;
+      border:none;
+      border-radius:50px;
+      font-size:1.1rem;
+      cursor:pointer;
+    }
+
+    @media (max-width:500px) {
+      h1 { font-size:1.9rem; }
+      button { padding:14px 32px; font-size:1.05rem; min-width:115px; }
+      .popup-content { padding:35px 25px; max-width:92%; }
+    }
+  </style>
 </head>
-
 <body>
 
-<!-- ⭐ Stars -->
-<div class="stars"></div>
+  <!-- Stars -->
+  <div class="stars"></div>
 
-<!-- 🎵 Background Music -->
-<audio id="bgMusic" src="music.mp3" loop></audio>
+  <div class="container">
+    <h1>My Beautiful Bamby 💖<br>Will You Be My Valentine?</h1>
 
-<div class="container">
-<h1>My Beautiful Bamby 💖<br>Will You Be My Valentine?</h1>
+    <div class="buttons">
+      <button id="yes">YES 😍</button>
+      <button id="no">NO 😜</button>
+    </div>
+  </div>
 
-<div class="buttons">
-    <button id="yes">YES 😍</button>
-    <button id="no">NO 😜</button>
-</div>
+  <!-- Same Message Popup (appears on YES click - every time) -->
+  <div id="popup">
+    <div class="popup-content">
+      <div class="popup-text">
+        Yay! 💖 I knew you would say yes!<br>
+        You make my heart so happy! 🥰❤️
+      </div>
+      <button class="close-btn" onclick="document.getElementById('popup').style.display='none'">Close 💕</button>
+    </div>
+  </div>
 
-<div id="proposal">
-Bamby… You are my calm and my forever. 💍  
-<div id="typing"></div>
-</div>
-</div>
+  <!-- Optional Background Music (uncomment if you have music.mp3) -->
+  <!--
+  <audio id="bgMusic" loop>
+    <source src="music.mp3" type="audio/mpeg">
+  </audio>
+  -->
 
-<script>
-const yesBtn=document.getElementById("yes");
-const noBtn=document.getElementById("no");
-const proposal=document.getElementById("proposal");
-const typing=document.getElementById("typing");
-const music=document.getElementById("bgMusic");
+  <script>
+    const yesBtn = document.getElementById("yes");
+    const popup   = document.getElementById("popup");
+    // const music   = document.getElementById("bgMusic"); // uncomment if using music
 
-/* YES Click */
-yesBtn.addEventListener("click",()=>{
-    proposal.style.display="block";
-    typing.innerHTML="";
-    music.play();   // 🎵 play music
-    startTyping();
-});
+    // Show SAME popup every single time YES is clicked
+    yesBtn.addEventListener("click", () => {
+      popup.style.display = "flex";
+      // music?.play(); // uncomment if using music
+    });
 
-/* Move NO (mobile safe) */
-function moveNo(){
-    noBtn.style.position="fixed";
-    noBtn.style.left=Math.random()*(window.innerWidth-100)+"px";
-    noBtn.style.top=Math.random()*(window.innerHeight-60)+"px";
-}
-
-noBtn.addEventListener("touchstart",moveNo);
-noBtn.addEventListener("mouseover",moveNo);
-
-/* ❤️ Flying Hearts */
-function createHeart(){
-    const heart=document.createElement("div");
-    heart.innerHTML="❤️";
-    heart.style.position="fixed";
-    heart.style.left=Math.random()*window.innerWidth+"px";
-    heart.style.bottom="0px";
-    heart.style.fontSize=(Math.random()*20+15)+"px";
-    heart.style.animation="floatUp 5s linear forwards";
-    document.body.appendChild(heart);
-
-    setTimeout(()=>{
-        heart.remove();
-    },5000);
-}
-
-setInterval(createHeart,500);
-
-/* ✨ Typing Effect (Correct Grammar) */
-function startTyping(){
-    const text="I love you, Bamby. You are my forever, my happiness, and the most beautiful part of my life. I promise to cherish you today, tomorrow, and always. ❤️";
-    let i=0;
-    function type(){
-        if(i<text.length){
-            typing.innerHTML+=text.charAt(i);
-            i++;
-            setTimeout(type,70);
-        }
+    // NO button moves around (fun + mobile safe)
+    const noBtn = document.getElementById("no");
+    function moveNo() {
+      noBtn.style.position = "fixed";
+      noBtn.style.left = Math.random() * (window.innerWidth - 160) + "px";
+      noBtn.style.top  = Math.random() * (window.innerHeight - 100) + "px";
     }
-    type();
-}
-</script>
+    noBtn.addEventListener("touchstart", moveNo);
+    noBtn.addEventListener("mouseover", moveNo);
 
+    // Continuous Flying Hearts
+    function createHeart() {
+      const heart = document.createElement("div");
+      heart.className = "heart";
+      heart.innerHTML = Math.random() > 0.6 ? "❤️" : "💗";
+      heart.style.left = Math.random() * 100 + "vw";
+      heart.style.bottom = "-20px";
+      heart.style.fontSize = (Math.random() * 1.4 + 1.4) + "rem";
+      heart.style.animationDuration = (Math.random() * 5 + 7) + "s"; // 7-12s float
+      document.body.appendChild(heart);
+      setTimeout(() => heart.remove(), 13000);
+    }
+    setInterval(createHeart, 350); // more hearts = more love
+  </script>
 </body>
 </html>
