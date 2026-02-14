@@ -1,57 +1,58 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>For My Bamby ❤️</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Montserrat:wght@300;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Montserrat:wght@400&display=swap" rel="stylesheet">
 
 <style>
-html, body {
+body{
     margin:0;
-    padding:0;
-    height:100%;
-    font-family:'Montserrat',sans-serif;
-    background: linear-gradient(135deg,#1a002b,#6a0572,#ff6ec4);
-    color:#fff;
-    overflow:hidden;
+    height:100vh;
     display:flex;
     justify-content:center;
     align-items:center;
+    font-family:'Montserrat',sans-serif;
+    background:linear-gradient(135deg,#1a002b,#6a0572,#ff6ec4);
+    color:white;
+    overflow:hidden;
 }
 
-/* Card */
 .container{
     width:90%;
-    max-width:420px;
-    padding:30px 25px;
-    background: rgba(255,255,255,0.1);
-    backdrop-filter: blur(15px);
-    border-radius:25px;
-    box-shadow:0 15px 40px rgba(0,0,0,0.4);
+    max-width:380px;
+    padding:30px 20px;
+    background:rgba(255,255,255,0.12);
+    backdrop-filter:blur(15px);
+    border-radius:20px;
     text-align:center;
     position:relative;
-    z-index:2;
 }
 
 h1{
     font-family:'Playfair Display',serif;
-    font-size:22px;
+    font-size:20px;
     margin-bottom:25px;
 }
 
+.buttons{
+    display:flex;
+    justify-content:center;
+    gap:20px;
+    position:relative;
+}
+
 button{
-    padding:14px 28px;
-    font-size:16px;
+    padding:12px 24px;
     border:none;
-    border-radius:40px;
-    margin:10px;
+    border-radius:30px;
+    font-size:15px;
     cursor:pointer;
-    transition:0.2s;
 }
 
 #yes{
-    background:#ffffff;
+    background:white;
     color:#6a0572;
     font-weight:bold;
 }
@@ -59,102 +60,64 @@ button{
 #no{
     background:#c9184a;
     color:white;
-    position:absolute;
-    left:50%;
-    transform:translateX(-50%);
-    top:65%;
 }
 
 #proposal{
     display:none;
     margin-top:20px;
-    font-size:15px;
+    font-size:14px;
     line-height:1.6;
 }
 
 #typing{
-    margin-top:15px;
-    font-size:18px;
-    border-right:2px solid #fff;
+    margin-top:12px;
+    font-size:16px;
+    border-right:2px solid white;
     white-space:nowrap;
     overflow:hidden;
     display:inline-block;
-}
-
-/* Hearts */
-.heart{
-    position:absolute;
-    font-size:18px;
-    animation:float 7s linear infinite;
-    opacity:0.8;
-}
-
-@keyframes float{
-    0%{transform:translateY(100vh);}
-    100%{transform:translateY(-10vh);}
-}
-
-canvas{
-    position:fixed;
-    top:0;
-    left:0;
-    z-index:1;
 }
 </style>
 </head>
 
 <body>
 
-<canvas id="fireworks"></canvas>
-
 <div class="container">
 <h1>My Beautiful Bamby 💖<br>Will You Be My Valentine?</h1>
 
-<button id="yes">YES 😍</button>
-<button id="no">NO 😜</button>
+<div class="buttons">
+    <button id="yes">YES 😍</button>
+    <button id="no">NO 😜</button>
+</div>
 
 <div id="proposal">
-Bamby…  
-You are my calm, my joy, my forever.  
-I choose you in every lifetime. 💍  
+Bamby… You are my calm and my forever. 💍  
 <div id="typing"></div>
 </div>
 </div>
 
-<audio id="bgMusic" loop>
-<source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_8c3f7b60b0.mp3?filename=romantic-background-11254.mp3" type="audio/mp3">
-</audio>
-
 <script>
+const yesBtn=document.getElementById("yes");
+const noBtn=document.getElementById("no");
+const proposal=document.getElementById("proposal");
+const typing=document.getElementById("typing");
 
-const yesBtn = document.getElementById("yes");
-const noBtn = document.getElementById("no");
-const proposal = document.getElementById("proposal");
-const typing = document.getElementById("typing");
-const music = document.getElementById("bgMusic");
-
-/* YES click */
-yesBtn.addEventListener("click", () => {
-
-    proposal.style.display = "block";
-    typing.innerHTML = "";
+/* YES Click */
+yesBtn.addEventListener("click",()=>{
+    proposal.style.display="block";
+    typing.innerHTML="";
     startTyping();
-
-    createFirework();
-    music.currentTime = 0;
-    music.play().catch(()=>{});
 });
 
-/* NO move (mobile safe using touchstart) */
-function moveButton(){
-    const x = Math.random() * (window.innerWidth - 120);
-    const y = Math.random() * (window.innerHeight - 80);
-    noBtn.style.left = x + "px";
-    noBtn.style.top = y + "px";
+/* Move NO (mobile safe) */
+function moveNo(){
+    noBtn.style.position="fixed";
+    noBtn.style.left=Math.random()*(window.innerWidth-100)+"px";
+    noBtn.style.top=Math.random()*(window.innerHeight-60)+"px";
 }
 
-noBtn.addEventListener("mouseover", moveButton);
-noBtn.addEventListener("touchstart", moveButton);
+noBtn.addEventListener("touchstart",moveNo);
+noBtn.addEventListener("mouseover",moveNo);
 
 /* Typing */
 function startTyping(){
@@ -162,66 +125,13 @@ function startTyping(){
     let i=0;
     function type(){
         if(i<text.length){
-            typing.innerHTML += text.charAt(i);
+            typing.innerHTML+=text.charAt(i);
             i++;
             setTimeout(type,70);
         }
     }
     type();
 }
-
-/* Fireworks */
-const canvas=document.getElementById("fireworks");
-const ctx=canvas.getContext("2d");
-
-function resizeCanvas(){
-    canvas.width=window.innerWidth;
-    canvas.height=window.innerHeight;
-}
-resizeCanvas();
-window.addEventListener("resize",resizeCanvas);
-
-let particles=[];
-
-function createFirework(){
-    particles=[];
-    for(let i=0;i<100;i++){
-        particles.push({
-            x:canvas.width/2,
-            y:canvas.height/2,
-            radius:3,
-            color:"hsl("+Math.random()*360+",100%,65%)",
-            speedX:(Math.random()-0.5)*6,
-            speedY:(Math.random()-0.5)*6
-        });
-    }
-}
-
-function animate(){
-    ctx.clearRect(0,0,canvas.width,canvas.height);
-    particles.forEach(p=>{
-        ctx.beginPath();
-        ctx.arc(p.x,p.y,p.radius,0,2*Math.PI);
-        ctx.fillStyle=p.color;
-        ctx.fill();
-        p.x+=p.speedX;
-        p.y+=p.speedY;
-    });
-    requestAnimationFrame(animate);
-}
-animate();
-
-/* Floating Hearts */
-setInterval(()=>{
-    const heart=document.createElement("div");
-    heart.innerHTML="❤️";
-    heart.className="heart";
-    heart.style.left=Math.random()*100+"vw";
-    heart.style.fontSize=Math.random()*10+18+"px";
-    document.body.appendChild(heart);
-    setTimeout(()=>heart.remove(),7000);
-},1000);
-
 </script>
 
 </body>
