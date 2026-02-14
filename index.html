@@ -8,23 +8,27 @@
   
   <style>
     * { margin:0; padding:0; box-sizing:border-box; }
+    html, body {
+      height: 100%;
+      min-height: -webkit-fill-available; /* iOS fix */
+      margin: 0;
+    }
     body {
-      height:100vh;
-      font-family:'Montserrat', sans-serif;
-      background:linear-gradient(135deg, #1a002b, #6a0572, #ff6ec4);
-      color:white;
-      overflow:hidden;
-      display:flex;
-      justify-content:center;
-      align-items:center;
-      touch-action:manipulation;
-      position:relative;
+      min-height: 100dvh; /* modern mobile viewport height */
+      font-family: 'Montserrat', sans-serif;
+      background: linear-gradient(135deg, #1a002b, #6a0572, #ff6ec4);
+      color: white;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      touch-action: manipulation;
+      position: relative;
     }
 
-    /* ⭐ Very light twinkling stars (lighter version) */
+    /* Light twinkling stars */
     .stars {
-      position:fixed;
-      inset:0;
+      position: fixed;
+      inset: 0;
       background: radial-gradient(circle, rgba(255,255,255,0.08) 1px, transparent 1px);
       background-size: 50px 50px;
       opacity: 0.5;
@@ -37,20 +41,20 @@
       50%      { opacity: 0.7; }
     }
 
-    /* ❤️ Flying Hearts – lighter & slower */
+    /* Flying Hearts – lighter */
     .heart {
-      position:fixed;
-      font-size:1.6rem;
-      pointer-events:none;
-      z-index:-1;
-      animation:floatUp linear forwards;
+      position: fixed;
+      font-size: 1.6rem;
+      pointer-events: none;
+      z-index: -1;
+      animation: floatUp linear forwards;
     }
     @keyframes floatUp {
-      0%   { transform:translateY(0) rotate(0deg); opacity:0.9; }
-      100% { transform:translateY(-120vh) rotate(360deg); opacity:0; }
+      0%   { transform: translateY(0) rotate(0deg); opacity: 0.9; }
+      100% { transform: translateY(-120vh) rotate(360deg); opacity: 0; }
     }
 
-    /* 🐱 Cute floating cats (soft & adorable) */
+    /* Cute floating cats */
     .cat {
       position: absolute;
       font-size: 3rem;
@@ -66,109 +70,109 @@
     }
 
     .container {
-      width:90%;
-      max-width:380px;
-      padding:35px 20px;
-      background:rgba(255,255,255,0.13);
-      backdrop-filter:blur(16px);
-      border-radius:24px;
-      text-align:center;
-      border:1px solid rgba(255,255,255,0.25);
-      box-shadow:0 10px 40px rgba(0,0,0,0.5);
-      z-index:10;
+      width: 90%;
+      max-width: 380px;
+      padding: 35px 20px;
+      background: rgba(255,255,255,0.13);
+      backdrop-filter: blur(16px);
+      border-radius: 24px;
+      text-align: center;
+      border: 1px solid rgba(255,255,255,0.25);
+      box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+      z-index: 10;
     }
 
     h1 {
-      font-family:'Playfair Display', serif;
-      font-size:2.2rem;
-      margin-bottom:35px;
-      line-height:1.2;
+      font-family: 'Playfair Display', serif;
+      font-size: 2.2rem;
+      margin-bottom: 35px;
+      line-height: 1.2;
     }
 
     .buttons {
-      display:flex;
-      justify-content:center;
-      gap:25px;
-      flex-wrap:wrap;
+      display: flex;
+      justify-content: center;
+      gap: 25px;
+      flex-wrap: wrap;
     }
 
     button {
-      padding:16px 36px;
-      font-size:1.15rem;
-      border:none;
-      border-radius:50px;
-      cursor:pointer;
-      transition:all 0.25s;
-      min-width:130px;
-      font-weight:bold;
+      padding: 16px 36px;
+      font-size: 1.15rem;
+      border: none;
+      border-radius: 50px;
+      cursor: pointer;
+      transition: all 0.25s;
+      min-width: 130px;
+      font-weight: bold;
     }
 
     #yes {
-      background:#ff3366;
-      color:white;
-      box-shadow:0 5px 18px rgba(255,51,102,0.6);
+      background: #ff3366;
+      color: white;
+      box-shadow: 0 5px 18px rgba(255,51,102,0.6);
     }
     #yes:active, #yes:focus {
-      transform:scale(1.1);
-      box-shadow:0 8px 25px rgba(255,51,102,0.9);
+      transform: scale(1.1);
+      box-shadow: 0 8px 25px rgba(255,51,102,0.9);
     }
 
     #no {
-      background:rgba(255,255,255,0.18);
-      color:white;
-      backdrop-filter:blur(6px);
+      background: rgba(255,255,255,0.18);
+      color: white;
+      backdrop-filter: blur(6px);
     }
 
-    /* Popup – unchanged */
+    /* Popup */
     #popup {
-      position:fixed;
-      inset:0;
-      background:rgba(0,0,0,0.75);
-      display:none;
-      justify-content:center;
-      align-items:center;
-      z-index:100;
-      backdrop-filter:blur(10px);
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.75);
+      display: none;
+      justify-content: center;
+      align-items: center;
+      z-index: 100;
+      backdrop-filter: blur(10px);
     }
 
     .popup-content {
-      background:rgba(106,5,114,0.92);
-      padding:45px 30px;
-      border-radius:28px;
-      max-width:360px;
-      text-align:center;
-      box-shadow:0 12px 50px rgba(0,0,0,0.7);
-      border:2px solid #ff6ec4;
-      animation:popIn 0.45s ease-out;
+      background: rgba(106,5,114,0.92);
+      padding: 45px 30px;
+      border-radius: 28px;
+      max-width: 360px;
+      text-align: center;
+      box-shadow: 0 12px 50px rgba(0,0,0,0.7);
+      border: 2px solid #ff6ec4;
+      animation: popIn 0.45s ease-out;
     }
 
     @keyframes popIn {
-      0% { transform:scale(0.6); opacity:0; }
-      100% { transform:scale(1); opacity:1; }
+      0% { transform: scale(0.6); opacity: 0; }
+      100% { transform: scale(1); opacity: 1; }
     }
 
     .popup-text {
-      font-size:1.35rem;
-      line-height:1.6;
-      margin:25px 0;
+      font-size: 1.35rem;
+      line-height: 1.6;
+      margin: 25px 0;
     }
 
     .close-btn {
-      margin-top:25px;
-      padding:12px 40px;
-      background:#ff3366;
-      color:white;
-      border:none;
-      border-radius:50px;
-      font-size:1.1rem;
-      cursor:pointer;
+      margin-top: 25px;
+      padding: 12px 40px;
+      background: #ff3366;
+      color: white;
+      border: none;
+      border-radius: 50px;
+      font-size: 1.1rem;
+      cursor: pointer;
     }
 
-    @media (max-width:500px) {
-      h1 { font-size:1.9rem; }
-      button { padding:14px 32px; font-size:1.05rem; min-width:115px; }
-      .popup-content { padding:35px 25px; max-width:92%; }
-      .cat { font-size:2.5rem; }
+    @media (max-width: 500px) {
+      h1 { font-size: 1.9rem; }
+      button { padding: 14px 32px; font-size: 1.05rem; min-width: 115px; }
+      .popup-content { padding: 35px 25px; max-width: 92%; }
+      .cat { font-size: 2.5rem; }
     }
   </style>
 </head>
@@ -177,7 +181,7 @@
   <!-- Light stars -->
   <div class="stars"></div>
 
-  <!-- Cute cats (placed softly in corners/background) -->
+  <!-- Cute cats -->
   <div class="cat" style="top:10%; left:8%;">😺</div>
   <div class="cat" style="top:15%; right:10%; animation-delay:4s;">🐾</div>
   <div class="cat" style="bottom:12%; left:15%; animation-delay:8s;">😻</div>
@@ -192,7 +196,7 @@
     </div>
   </div>
 
-  <!-- Same popup message every time -->
+  <!-- Popup -->
   <div id="popup">
     <div class="popup-content">
       <div class="popup-text">
@@ -207,12 +211,10 @@
     const yesBtn = document.getElementById("yes");
     const popup   = document.getElementById("popup");
 
-    // Same popup every YES click
     yesBtn.addEventListener("click", () => {
       popup.style.display = "flex";
     });
 
-    // NO button moves (unchanged)
     const noBtn = document.getElementById("no");
     function moveNo() {
       noBtn.style.position = "fixed";
@@ -222,7 +224,6 @@
     noBtn.addEventListener("touchstart", moveNo);
     noBtn.addEventListener("mouseover", moveNo);
 
-    // Lighter flying hearts (slower & fewer)
     function createHeart() {
       const heart = document.createElement("div");
       heart.className = "heart";
@@ -230,11 +231,11 @@
       heart.style.left = Math.random() * 100 + "vw";
       heart.style.bottom = "-20px";
       heart.style.fontSize = (Math.random() * 1.2 + 1.2) + "rem";
-      heart.style.animationDuration = (Math.random() * 6 + 10) + "s"; // slower: 10-16s
+      heart.style.animationDuration = (Math.random() * 6 + 10) + "s";
       document.body.appendChild(heart);
       setTimeout(() => heart.remove(), 18000);
     }
-    setInterval(createHeart, 800); // lighter: every 800ms instead of 350ms
+    setInterval(createHeart, 800);
   </script>
 </body>
 </html>
