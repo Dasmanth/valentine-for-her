@@ -1,73 +1,58 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 <title>For My Bamby ❤️</title>
+
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Montserrat:wght@300;500&display=swap" rel="stylesheet">
 
 <style>
-body{
+html, body {
     margin:0;
+    padding:0;
+    height:100%;
     font-family:'Montserrat',sans-serif;
-    background: linear-gradient(135deg,#1a002b,#4b006e,#8e2de2);
-    color:#f8e9ff;
+    background: linear-gradient(135deg,#1a002b,#6a0572,#ff6ec4);
+    color:#fff;
     overflow:hidden;
+    display:flex;
+    justify-content:center;
+    align-items:center;
 }
 
-/* Soft animated glow background */
-body::before{
-    content:"";
-    position:fixed;
-    width:200%;
-    height:200%;
-    background: radial-gradient(circle at center,#ff6ec4 0%,transparent 60%);
-    animation: glow 8s infinite alternate;
-    z-index:0;
-}
-@keyframes glow{
-    from{transform:translate(-25%,-25%) scale(1);}
-    to{transform:translate(-20%,-20%) scale(1.2);}
-}
-
-/* Glass Card */
+/* Card */
 .container{
-    position:relative;
-    z-index:2;
-    margin:80px auto;
     width:90%;
     max-width:420px;
-    padding:35px 25px;
-    background: rgba(255,255,255,0.08);
-    backdrop-filter: blur(18px);
+    padding:30px 25px;
+    background: rgba(255,255,255,0.1);
+    backdrop-filter: blur(15px);
     border-radius:25px;
     box-shadow:0 15px 40px rgba(0,0,0,0.4);
     text-align:center;
+    position:relative;
+    z-index:2;
 }
 
 h1{
     font-family:'Playfair Display',serif;
-    font-size:26px;
-    margin-bottom:30px;
-    color:#ffffff;
+    font-size:22px;
+    margin-bottom:25px;
 }
 
 button{
-    padding:14px 30px;
-    font-size:17px;
+    padding:14px 28px;
+    font-size:16px;
     border:none;
     border-radius:40px;
-    margin:15px;
+    margin:10px;
     cursor:pointer;
     transition:0.2s;
 }
 
-button:active{
-    transform:scale(0.95);
-}
-
 #yes{
-    background:#ffd6ff;
-    color:#4b006e;
+    background:#ffffff;
+    color:#6a0572;
     font-weight:bold;
 }
 
@@ -75,19 +60,21 @@ button:active{
     background:#c9184a;
     color:white;
     position:absolute;
+    left:50%;
+    transform:translateX(-50%);
+    top:65%;
 }
 
 #proposal{
     display:none;
-    margin-top:25px;
-    font-size:16px;
+    margin-top:20px;
+    font-size:15px;
     line-height:1.6;
 }
 
 #typing{
-    margin-top:18px;
-    font-size:20px;
-    font-weight:500;
+    margin-top:15px;
+    font-size:18px;
     border-right:2px solid #fff;
     white-space:nowrap;
     overflow:hidden;
@@ -123,15 +110,12 @@ canvas{
 <div class="container">
 <h1>My Beautiful Bamby 💖<br>Will You Be My Valentine?</h1>
 
-<button id="yes" onclick="yesClicked()">YES 😍</button>
-<button id="no" onmouseover="moveButton()">NO 😜</button>
+<button id="yes">YES 😍</button>
+<button id="no">NO 😜</button>
 
 <div id="proposal">
 Bamby…  
-You are the calm in my chaos,  
-the smile in my every day,  
-the love I prayed for and found.  
-
+You are my calm, my joy, my forever.  
 I choose you in every lifetime. 💍  
 <div id="typing"></div>
 </div>
@@ -143,31 +127,72 @@ I choose you in every lifetime. 💍
 
 <script>
 
-/* Move NO */
+const yesBtn = document.getElementById("yes");
+const noBtn = document.getElementById("no");
+const proposal = document.getElementById("proposal");
+const typing = document.getElementById("typing");
+const music = document.getElementById("bgMusic");
+
+/* YES click */
+yesBtn.addEventListener("click", () => {
+
+    proposal.style.display = "block";
+    typing.innerHTML = "";
+    startTyping();
+
+    createFirework();
+    music.currentTime = 0;
+    music.play().catch(()=>{});
+});
+
+/* NO move (mobile safe using touchstart) */
 function moveButton(){
-    var x=Math.random()*(window.innerWidth-120);
-    var y=Math.random()*(window.innerHeight-60);
-    document.getElementById("no").style.left=x+"px";
-    document.getElementById("no").style.top=y+"px";
+    const x = Math.random() * (window.innerWidth - 120);
+    const y = Math.random() * (window.innerHeight - 80);
+    noBtn.style.left = x + "px";
+    noBtn.style.top = y + "px";
+}
+
+noBtn.addEventListener("mouseover", moveButton);
+noBtn.addEventListener("touchstart", moveButton);
+
+/* Typing */
+function startTyping(){
+    const text="I love you Bamby ❤️ Forever & Always.";
+    let i=0;
+    function type(){
+        if(i<text.length){
+            typing.innerHTML += text.charAt(i);
+            i++;
+            setTimeout(type,70);
+        }
+    }
+    type();
 }
 
 /* Fireworks */
-var canvas=document.getElementById("fireworks");
-var ctx=canvas.getContext("2d");
-canvas.width=window.innerWidth;
-canvas.height=window.innerHeight;
-var particles=[];
+const canvas=document.getElementById("fireworks");
+const ctx=canvas.getContext("2d");
+
+function resizeCanvas(){
+    canvas.width=window.innerWidth;
+    canvas.height=window.innerHeight;
+}
+resizeCanvas();
+window.addEventListener("resize",resizeCanvas);
+
+let particles=[];
 
 function createFirework(){
     particles=[];
-    for(let i=0;i<120;i++){
+    for(let i=0;i<100;i++){
         particles.push({
             x:canvas.width/2,
             y:canvas.height/2,
             radius:3,
             color:"hsl("+Math.random()*360+",100%,65%)",
-            speedX:(Math.random()-0.5)*7,
-            speedY:(Math.random()-0.5)*7
+            speedX:(Math.random()-0.5)*6,
+            speedY:(Math.random()-0.5)*6
         });
     }
 }
@@ -186,47 +211,16 @@ function animate(){
 }
 animate();
 
-/* YES Click */
-function yesClicked(){
-    document.getElementById("proposal").style.display="block";
-
-    // restart typing
-    document.getElementById("typing").innerHTML="";
-    startTyping();
-
-    // restart fireworks
-    createFirework();
-
-    // force music play (iOS safe)
-    var music=document.getElementById("bgMusic");
-    music.currentTime = 0;
-    music.play().catch(()=>{});
-}
-
-/* Typing */
-function startTyping(){
-    var text="I love you Bamby ❤️ Forever & Always.";
-    var i=0;
-    function type(){
-        if(i<text.length){
-            document.getElementById("typing").innerHTML+=text.charAt(i);
-            i++;
-            setTimeout(type,70);
-        }
-    }
-    type();
-}
-
 /* Floating Hearts */
-setInterval(function(){
-    var heart=document.createElement("div");
+setInterval(()=>{
+    const heart=document.createElement("div");
     heart.innerHTML="❤️";
     heart.className="heart";
     heart.style.left=Math.random()*100+"vw";
-    heart.style.fontSize=Math.random()*12+18+"px";
+    heart.style.fontSize=Math.random()*10+18+"px";
     document.body.appendChild(heart);
-    setTimeout(()=>{heart.remove();},7000);
-},900);
+    setTimeout(()=>heart.remove(),7000);
+},1000);
 
 </script>
 
