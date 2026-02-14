@@ -10,11 +10,11 @@
     * { margin:0; padding:0; box-sizing:border-box; }
     html, body {
       height: 100%;
-      min-height: -webkit-fill-available; /* iOS fix */
+      min-height: -webkit-fill-available;
       margin: 0;
     }
     body {
-      min-height: 100dvh; /* modern mobile viewport height */
+      min-height: 100dvh;
       font-family: 'Montserrat', sans-serif;
       background: linear-gradient(135deg, #1a002b, #6a0572, #ff6ec4);
       color: white;
@@ -23,9 +23,10 @@
       align-items: center;
       touch-action: manipulation;
       position: relative;
+      overflow: hidden;
     }
 
-    /* Light twinkling stars */
+    /* Light twinkling background stars */
     .stars {
       position: fixed;
       inset: 0;
@@ -41,7 +42,24 @@
       50%      { opacity: 0.7; }
     }
 
-    /* Flying Hearts – lighter */
+    /* Falling light stars from sky (subtle & cute) */
+    .falling-star {
+      position: absolute;
+      width: 3px;
+      height: 3px;
+      background: rgba(255, 255, 220, 0.9);
+      border-radius: 50%;
+      box-shadow: 0 0 8px rgba(255, 255, 220, 0.8);
+      pointer-events: none;
+      z-index: -1;
+      animation: fallStar linear infinite;
+    }
+    @keyframes fallStar {
+      0%   { transform: translateY(-20vh) scale(0.8); opacity: 0.9; }
+      100% { transform: translateY(120vh) scale(0.4); opacity: 0.1; }
+    }
+
+    /* Flying Hearts */
     .heart {
       position: fixed;
       font-size: 1.6rem;
@@ -54,19 +72,19 @@
       100% { transform: translateY(-120vh) rotate(360deg); opacity: 0; }
     }
 
-    /* Cute floating cats */
+    /* More cute floating cats (8 now, soft movement) */
     .cat {
       position: absolute;
-      font-size: 3rem;
+      font-size: 3.2rem;
       pointer-events: none;
       z-index: -1;
-      opacity: 0.7;
-      animation: catFloat 18s ease-in-out infinite;
+      opacity: 0.75;
+      animation: catFloat 20s ease-in-out infinite;
     }
     @keyframes catFloat {
-      0%   { transform: translate(0, 0) rotate(0deg); opacity: 0.4; }
-      50%  { transform: translate(30px, -40px) rotate(5deg); opacity: 0.8; }
-      100% { transform: translate(0, 0) rotate(0deg); opacity: 0.4; }
+      0%   { transform: translate(0, 0) rotate(0deg); opacity: 0.5; }
+      50%  { transform: translate(var(--x), var(--y)) rotate(var(--rot)); opacity: 0.9; }
+      100% { transform: translate(0, 0) rotate(0deg); opacity: 0.5; }
     }
 
     .container {
@@ -123,7 +141,7 @@
       backdrop-filter: blur(6px);
     }
 
-    /* Popup */
+    /* Popup – same message every time */
     #popup {
       position: fixed;
       inset: 0;
@@ -172,20 +190,24 @@
       h1 { font-size: 1.9rem; }
       button { padding: 14px 32px; font-size: 1.05rem; min-width: 115px; }
       .popup-content { padding: 35px 25px; max-width: 92%; }
-      .cat { font-size: 2.5rem; }
+      .cat { font-size: 2.8rem; }
     }
   </style>
 </head>
 <body>
 
-  <!-- Light stars -->
+  <!-- Light twinkling stars -->
   <div class="stars"></div>
 
-  <!-- Cute cats -->
-  <div class="cat" style="top:10%; left:8%;">😺</div>
-  <div class="cat" style="top:15%; right:10%; animation-delay:4s;">🐾</div>
-  <div class="cat" style="bottom:12%; left:15%; animation-delay:8s;">😻</div>
-  <div class="cat" style="bottom:18%; right:12%; animation-delay:12s;">🐱</div>
+  <!-- Cute floating cats – now 8 with varied paths -->
+  <div class="cat" style="--x:40px; --y:-50px; --rot:8deg; top:8%; left:6%;">😺</div>
+  <div class="cat" style="--x:-35px; --y:60px; --rot:-6deg; top:18%; right:9%; animation-delay:3s;">🐾</div>
+  <div class="cat" style="--x:50px; --y:-45px; --rot:5deg; bottom:15%; left:12%; animation-delay:6s;">😻</div>
+  <div class="cat" style="--x:-30px; --y:55px; --rot:-7deg; bottom:20%; right:10%; animation-delay:9s;">🐱</div>
+  <div class="cat" style="--x:25px; --y:-30px; --rot:4deg; top:25%; left:20%; animation-delay:1s;">😸</div>
+  <div class="cat" style="--x:-40px; --y:40px; --rot:-5deg; top:30%; right:15%; animation-delay:4s;">🐈</div>
+  <div class="cat" style="--x:35px; --y:-55px; --rot:6deg; bottom:25%; left:18%; animation-delay:7s;">😽</div>
+  <div class="cat" style="--x:-25px; --y:35px; --rot:-4deg; bottom:10%; right:20%; animation-delay:10s;">🐈‍⬛</div>
 
   <div class="container">
     <h1>My Beautiful Bamby 💖<br>Will You Be My Valentine?</h1>
@@ -196,7 +218,7 @@
     </div>
   </div>
 
-  <!-- Popup -->
+  <!-- Popup – same every time -->
   <div id="popup">
     <div class="popup-content">
       <div class="popup-text">
@@ -236,6 +258,18 @@
       setTimeout(() => heart.remove(), 18000);
     }
     setInterval(createHeart, 800);
+
+    // Light falling stars from sky (added now)
+    function createFallingStar() {
+      const star = document.createElement("div");
+      star.className = "falling-star";
+      star.style.left = Math.random() * 100 + "vw";
+      star.style.animationDuration = (Math.random() * 8 + 10) + "s"; // 10–18s fall
+      star.style.animationDelay = Math.random() * 5 + "s";
+      document.body.appendChild(star);
+      setTimeout(() => star.remove(), 20000);
+    }
+    setInterval(createFallingStar, 1200); // one every ~1.2s – very light
   </script>
 </body>
 </html>
