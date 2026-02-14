@@ -36,11 +36,12 @@ h1{
     margin-bottom:25px;
 }
 
-.buttons{
-    display:flex;
-    justify-content:center;
-    gap:20px;
-    position:relative;
+.buttons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    flex-wrap: nowrap;
 }
 
 button{
@@ -51,15 +52,25 @@ button{
     cursor:pointer;
 }
 
+ @media (max-width: 600px) {
+    .buttons {
+        flex-direction: row;
+    }
+
+    button {
+        min-width: 110px;
+    }
+}   
+
 #yes{
     background:white;
     color:#6a0572;
     font-weight:bold;
 }
 
-#no{
-    background:#c9184a;
-    color:white;
+#no {
+    background: #c9184a;
+    color: white;
 }
 
 #proposal{
@@ -121,7 +132,7 @@ noBtn.addEventListener("mouseover",moveNo);
 
 /* Typing */
 function startTyping(){
-    const text="I love you Bamby ❤️ Forever & Always.";
+    const text = "I love you, Bamby. You are my forever, my happiness, and the most beautiful part of my life. I promise to cherish you today, tomorrow, and always. ❤️";
     let i=0;
     function type(){
         if(i<text.length){
