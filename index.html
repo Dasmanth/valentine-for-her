@@ -2,26 +2,28 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover"/>
   <title>For My Bamby ❤️</title>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
   
   <style>
     * { margin:0; padding:0; box-sizing:border-box; }
     html, body {
-      height: 100% !important;
-      min-height: 100dvh !important;
-      margin: 0 !important;
-      padding: 0 !important;
+      height: 100%;
+      min-height: -webkit-fill-available;
+      margin: 0;
+      padding: 0;
+      overflow-x: hidden;
     }
     body {
-      min-height: 100dvh !important;
+      min-height: 100dvh;
       font-family: 'Montserrat', sans-serif;
       background: linear-gradient(135deg, #1a002b, #6a0572, #ff6ec4);
       color: white;
-      display: flex !important;
-      justify-content: center !important;
-      align-items: center !important;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
       touch-action: manipulation;
       position: relative;
     }
@@ -98,8 +100,11 @@
       border: 1px solid rgba(255,255,255,0.25);
       box-shadow: 0 10px 40px rgba(0,0,0,0.5);
       z-index: 10;
-      min-height: 50vh; /* force visibility */
       position: relative;
+      min-height: 40vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
     }
 
     h1 {
@@ -232,6 +237,15 @@
   </div>
 
   <script>
+    // Force mobile viewport fix on load (helps iOS Safari)
+    window.addEventListener('load', () => {
+      document.body.style.height = window.innerHeight + 'px';
+      document.body.style.minHeight = '100dvh';
+    });
+    window.addEventListener('resize', () => {
+      document.body.style.height = window.innerHeight + 'px';
+    });
+
     const yesBtn = document.getElementById("yes");
     const popup   = document.getElementById("popup");
 
@@ -261,7 +275,6 @@
     }
     setInterval(createHeart, 800);
 
-    // Falling light stars
     function createFallingStar() {
       const star = document.createElement("div");
       star.className = "falling-star";
